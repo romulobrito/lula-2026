@@ -138,6 +138,9 @@ FATOR_ATE_8 = 1.0
 FATOR_ATE_15 = 0.65
 FATOR_ATE_25 = 0.35
 FATOR_ACIMA_25 = 0.15
+# An absentee counts as half a deficit vote, and only inside the two
+# bands where turnout can still change the state result.
+PESO_AUSENTE = 0.5
 
 TOLERANCIA_PP = 0.2
 ROTULO_SEM_REGIAO = "Sem macrorregiao"
@@ -539,19 +542,27 @@ def fator_proximidade(margem_pp: float) -> float:
     return FATOR_ACIMA_25
 
 
-def indice_atencao(dif_pp: float, dif_votos: int) -> float:
+def indice_atencao(dif_pp: float, dif_votos: int, abstencoes: int, papel: str) -> float:
     """Score cities Lula is losing. Higher means more useful attention.
 
     Args:
         dif_pp: Lula percent minus Flavio percent.
         dif_votos: Lula votes minus Flavio votes.
+        abstencoes: Registered voters who did not turn out.
+        papel: Operational role already assigned to the municipality.
 
     Returns:
-        Deficit times the closeness factor. Zero when Lula is ahead or tied.
+        Deficit times the closeness factor. In Intensificar and Reduzir o
+        buraco, half of the abstentions are added before that discount.
+        Zero when Lula is ahead or tied.
     """
     if dif_votos >= 0:
         return 0.0
-    return float(-dif_votos) * fator_proximidade(abs(dif_pp))
+    fator = fator_proximidade(abs(dif_pp))
+    base = float(-dif_votos) * fator
+    if papel not in ("Intensificar", "Reduzir o buraco"):
+        return base
+    return base + (PESO_AUSENTE * float(max(abstencoes, 0)) * fator)
 
 
 def classificar_municipio(dif_pp: float, dif_votos: int, aptos: int) -> str:
@@ -1022,7 +1033,7 @@ def ler_municipios(
                 nome=nome,
                 regiao=resolver_regiao(uf, nome, mapa_externo),
                 papel=papel,
-                indice=indice_atencao(dif_pp, dif_votos),
+                indice=indice_atencao(dif_pp, dif_votos, abstencoes, papel),
                 locais=locais,
                 aptos=aptos,
                 comparecimento=comparecimento,
@@ -1327,7 +1338,7 @@ def paragrafos(relatorio: Relatorio) -> list[str]:
     )
     if intensificar:
         texto.append(
-            "Intensificar, nesta ordem: {nomes}. São municípios de margem curta e eleitorado grande. O índice de atenção multiplica o déficit de votos por um fator que cai quando a margem passa de 8, de 15 e de 25 pontos.".format(
+            "Intensificar, nesta ordem: {nomes}. São municípios de margem curta e eleitorado grande. O índice soma o déficit e metade das abstenções, e esse total cai quando a margem passa de 8, de 15 e de 25 pontos.".format(
                 nomes=_nomes(intensificar, 8),
             )
         )
@@ -1392,7 +1403,7 @@ def metodologia() -> list[str]:
         "Presença contida: a diferença já é larga demais para concentrar comício e agenda. Entram municípios com margem de 28 p.p. ou mais e também os de menos de 40 mil aptos com margem acima de 15 p.p. A orientação é presença leve, para a margem não crescer.",
         "Consolidar: Lula já tem mais votos que Flávio. O trabalho é segurar a dianteira e ampliar os locais em que ele fica à frente.",
         "Apoio local: o que sobra depois das faixas acima. A cidade entra na soma do estado, mas não justifica deslocar a estrutura principal.",
-        "Índice de atenção = déficit de votos x fator de proximidade (1,00 até 8 p.p.; 0,65 até 15; 0,35 até 25; 0,15 acima disso).",
+        "Índice de atenção = (déficit de votos + metade das abstenções) x fator de proximidade (1,00 até 8 p.p.; 0,65 até 15; 0,35 até 25; 0,15 acima disso). A metade das abstenções só entra em Intensificar e em Reduzir o buraco. Em Presença contida o ausente não sobe o município.",
         "Trocas para empatar = metade do déficit, arredondada para cima. Votos novos para empatar = o déficit inteiro, se o total de Flávio ficar parado.",
         "O mapa embutido cobre as macrorregiões de campanha do RJ. Nos demais estados o gráfico usa a mesorregião do IBGE. Um CSV em --regioes substitui os dois quando o nome do município coincide.",
         "Abstenção não revela preferência. Ela só mede o tamanho do eleitorado que não compareceu.",
@@ -2722,7 +2733,7 @@ details { margin-top: 28px; }
             "<th>Índice</th><th>Aptos</th><th>Abstenção</th><th>Lula</th><th>Flávio</th><th>Locais Lula / Flávio</th>",
             "</tr></thead><tbody>",
             "\n".join(linhas_muni),
-            "</tbody><caption>Diferença em pontos e em votos: Lula menos Flávio. Abstenção sobre aptos.</caption></table></div>",
+            "</tbody><caption>Diferença em pontos e em votos: Lula menos Flávio. Abstenção sobre aptos. Em Intensificar e Reduzir o buraco, o índice soma metade das abstenções e aplica o desconto da margem.</caption></table></div>",
             html_presenca(relatorio),
             "<aside class=\"callout aviso\"><strong>Limite deste arquivo</strong>",
             "<p>O recorte é municipal. Faltam zona, seção, perfil do eleitor e série histórica. ",
