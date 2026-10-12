@@ -1959,7 +1959,7 @@ def montar_svg_mapa(relatorio: Relatorio) -> str:
         )
         if maior_anel > 0:
             rotulos.append(
-                "<text class=\"mapa-nome\" data-id=\"{indice}\" data-papel=\"{papel}\" x=\"{x:.1f}\" y=\"{y:.1f}\" text-anchor=\"middle\">{nome}</text>".format(
+                "<text class=\"mapa-nome\" data-id=\"{indice}\" data-papel=\"{papel}\" x=\"{x:.1f}\" y=\"{y:.1f}\" text-anchor=\"middle\" dominant-baseline=\"middle\">{nome}</text>".format(
                     indice=indice_desenho,
                     papel=html.escape(papel, quote=True),
                     x=centro_x,
@@ -2632,7 +2632,7 @@ p, li { line-height: 1.45; }
 .mapa-svg.arrastando { cursor: grabbing; }
 .zoom-mapa { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
 .zoom-mapa button { border: 1px solid #c5cad3; background: #fff; color: #1a1a1a; border-radius: 999px; padding: 6px 12px; cursor: pointer; font: inherit; }
-.mapa-nome { display: none; font-size: 8px; font-weight: 650; fill: #1a1a1a; stroke: #ffffff; stroke-width: 2px; paint-order: stroke; pointer-events: none; }
+.mapa-nome { display: none; font-weight: 650; fill: #1a1a1a; stroke: #ffffff; paint-order: stroke; pointer-events: none; }
 .mapa-wrap { background: #fff; border: 1px solid #d7dbe2; padding: 12px; overflow: visible; }
 .legenda { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 0; font-size: 13px; }
 .legenda i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
@@ -2777,6 +2777,13 @@ details { margin-top: 28px; }
             "  var svg = document.getElementById('mapa-svg');",
             "  if (!camada || !svg) { return; }",
             "  camada.setAttribute('transform', 'translate(' + mapaZoom.x + ' ' + mapaZoom.y + ') scale(' + mapaZoom.escala + ')');",
+            "  var nomesZoom = document.querySelectorAll('.mapa-nome');",
+            "  var tamanho = (13 / mapaZoom.escala).toFixed(2);",
+            "  var halo = (2.6 / mapaZoom.escala).toFixed(2);",
+            "  for (var i = 0; i < nomesZoom.length; i += 1) {",
+            "    nomesZoom[i].style.fontSize = tamanho + 'px';",
+            "    nomesZoom[i].style.strokeWidth = halo + 'px';",
+            "  }",
             "  if (mapaZoom.escala >= 2.4) { svg.classList.add('com-nomes'); }",
             "  else { svg.classList.remove('com-nomes'); }",
             "}",
