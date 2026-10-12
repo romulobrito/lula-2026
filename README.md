@@ -12,7 +12,9 @@ Gera, para cada estado, um XLSX e um HTML com o papel de campanha de cada munici
 - **Apoio local**: nao entra nas faixas acima e nao justifica a estrutura principal.
 - **Presenca contida**: margem larga demais para concentrar comicio e agenda.
 
-O indice de atencao vale o deficit de votos vezes um fator de proximidade: 1,00 ate 8 pontos, 0,65 ate 15, 0,35 ate 25 e 0,15 acima disso. Quando Lula esta a frente, o indice e zero.
+O indice de atencao, em Intensificar e Reduzir o buraco, soma o deficit de votos com metade das abstencoes e multiplica pelo fator de proximidade: 1,00 ate 8 pontos, 0,65 ate 15, 0,35 ate 25 e 0,15 acima disso. Em Presenca contida a abstencao nao sobe o municipio. Quando Lula esta a frente, o indice e zero.
+
+A tabela de regioes cruza tres sinais com o deficit: se as abstencoes cobrem o buraco, a parcela de locais em que Lula fica a frente, e brancos e nulos (comparecimento menos votos validos).
 
 ## Requisitos
 

@@ -647,6 +647,48 @@ def agregar(nome: str, municipios: list[Municipio]) -> Agregado:
     )
 
 
+def brancos_nulos(agregado: Agregado) -> int:
+    """Count turnout that did not become a valid vote.
+
+    Args:
+        agregado: State or region totals.
+
+    Returns:
+        Comparecimento minus valid votes, never negative.
+    """
+    return max(agregado.comparecimento - agregado.validos, 0)
+
+
+def texto_teto_ausentes(agregado: Agregado) -> str:
+    """Say whether abstention could numerically close Lula's deficit.
+
+    Args:
+        agregado: State or region totals.
+
+    Returns:
+        A short Portuguese label for the report.
+    """
+    if agregado.dif_votos >= 0:
+        return "Lula na frente"
+    if agregado.abstencoes >= agregado.deficit:
+        return "Ausentes cobrem"
+    return "Ausentes não cobrem"
+
+
+def pct_locais_lula(agregado: Agregado) -> float:
+    """Share of polling places where Lula is ahead.
+
+    Args:
+        agregado: State or region totals.
+
+    Returns:
+        Percent from 0 to 100. Zero when the group has no polling places.
+    """
+    if agregado.locais <= 0:
+        return 0.0
+    return 100.0 * agregado.locais_lula / agregado.locais
+
+
 def detectar_delimitador(amostra: str) -> str:
     """Pick semicolon or comma from the header line.
 
@@ -1406,7 +1448,7 @@ def metodologia() -> list[str]:
         "Índice de atenção = (déficit de votos + metade das abstenções) x fator de proximidade (1,00 até 8 p.p.; 0,65 até 15; 0,35 até 25; 0,15 acima disso). A metade das abstenções só entra em Intensificar e em Reduzir o buraco. Em Presença contida o ausente não sobe o município.",
         "Trocas para empatar = metade do déficit, arredondada para cima. Votos novos para empatar = o déficit inteiro, se o total de Flávio ficar parado.",
         "O mapa embutido cobre as macrorregiões de campanha do RJ. Nos demais estados o gráfico usa a mesorregião do IBGE. Um CSV em --regioes substitui os dois quando o nome do município coincide.",
-        "Abstenção não revela preferência. Ela só mede o tamanho do eleitorado que não compareceu.",
+        "Abstenção não revela preferência. Ela só mede o tamanho do eleitorado que não compareceu. Ausentes cobrem quando esse total alcança o déficit da região. Brancos e nulos = comparecimento menos votos válidos.",
     ]
 
 
@@ -1622,6 +1664,9 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
             ["Locais Lula à frente", estado.locais_lula],
             ["Locais Flávio à frente", estado.locais_flavio],
             ["Locais empate", estado.locais_empate],
+            ["Locais Lula %", round(pct_locais_lula(estado), 1)],
+            ["Brancos e nulos", brancos_nulos(estado)],
+            ["Ausentes e o buraco", texto_teto_ausentes(estado)],
         ],
         {"Indicador": 28, "Valor": 22},
     )
@@ -1651,8 +1696,12 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
                 round(regiao.votos_por_pp, 1),
                 round(parcela, 1),
                 regiao.locais_lula,
+                round(pct_locais_lula(regiao), 1),
                 regiao.locais_flavio,
                 regiao.locais_empate,
+                regiao.abstencoes,
+                texto_teto_ausentes(regiao),
+                brancos_nulos(regiao),
             ]
         )
     aba_regiao = livro.create_sheet("Macrorregioes")
@@ -1675,8 +1724,12 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
             "Votos em 1 p.p.",
             "Parcela do déficit %",
             "Locais Lula",
+            "Locais Lula %",
             "Locais Flávio",
             "Locais empate",
+            "Abstenções",
+            "Ausentes e o buraco",
+            "Brancos e nulos",
         ],
         linhas_regiao,
         {
@@ -1696,8 +1749,12 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
             "Votos em 1 p.p.": 18,
             "Parcela do déficit %": 20,
             "Locais Lula": 14,
+            "Locais Lula %": 16,
             "Locais Flávio": 16,
             "Locais empate": 14,
+            "Abstenções": 14,
+            "Ausentes e o buraco": 24,
+            "Brancos e nulos": 18,
         },
     )
 
@@ -2565,12 +2622,16 @@ def escrever_html(relatorio: Relatorio, destino: Path, svg_mapa: str) -> None:
             _celula(fmt_int(int(round(regiao.votos_por_pp))), "right"),
             _celula(fmt_pct(parcela), "right"),
             _celula(
-                "{lula} / {total}".format(
+                "{lula} / {total} ({pct})".format(
                     lula=fmt_int(regiao.locais_lula),
                     total=fmt_int(regiao.locais),
+                    pct=fmt_pct(pct_locais_lula(regiao)),
                 ),
                 "right",
             ),
+            _celula(fmt_int(regiao.abstencoes), "right"),
+            _celula(texto_teto_ausentes(regiao)),
+            _celula(fmt_int(brancos_nulos(regiao)), "right"),
         ]
         marca = papel_interno if papel_interno in COR_PAPEL else ""
         linhas_regiao.append(
@@ -2711,13 +2772,14 @@ details { margin-top: 28px; }
             "<h2>",
             html.escape(nome_grupo[0].upper() + nome_grupo[1:]),
             " e o papel de cada uma</h2>",
-            "<p class=\"fonte\">Votos em 1 p.p. = votos válidos da região divididos por 100. Parcela do déficit = fatia dos votos em que Lula está atrás.</p>",
+            "<p class=\"fonte\">O déficit mantém a ordem da região. Ausentes e o buraco diz se a mobilização, no teto, fecharia a diferença. Locais de Lula mostra a base que já existe. Brancos e nulos são quem compareceu e não entrou no voto válido.</p>",
             "<div class=\"tabela-wrap\"><table><thead><tr>",
             "<th>Macrorregião</th><th>Papel</th><th>Municípios</th><th>Aptos</th><th>Lula</th><th>Flávio</th>",
-            "<th>Diferença (p.p.)</th><th>Diferença (votos)</th><th>Votos em 1 p.p.</th><th>Parcela do déficit</th><th>Locais de Lula</th>",
+            "<th>Diferença (p.p.)</th><th>Diferença (votos)</th><th>Votos em 1 p.p.</th><th>Parcela do déficit</th>",
+            "<th>Locais de Lula</th><th>Abstenções</th><th>Ausentes e o buraco</th><th>Brancos e nulos</th>",
             "</tr></thead><tbody>",
             "\n".join(linhas_regiao),
-            "</tbody><caption>Parcela do déficit usa só o que Lula está atrás.</caption></table></div>",
+            "</tbody><caption>Parcela do déficit usa só o que Lula está atrás. Ausentes cobrem quando as abstenções alcançam o déficit. Brancos e nulos = comparecimento menos votos válidos.</caption></table></div>",
             "<h2>Municípios que mudam a fila</h2>",
             "<p>A tabela reúne todos os municípios, na ordem operacional. Estes seletores são os mesmos do mapa.</p>",
             "<div class=\"filtros\">",
