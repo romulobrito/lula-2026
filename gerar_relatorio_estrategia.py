@@ -255,6 +255,21 @@ class Municipio:
             return 0
         return abs(self.dif_votos)
 
+    @property
+    def competitividade(self) -> float | None:
+        """Closeness of Lula and Flavio only, from 0 to 1. None when undefined."""
+        return competitividade_eleitoral(self.lula, self.flavio)
+
+    @property
+    def taxa_abstencao(self) -> float | None:
+        """Abstention rate over registered voters. None when undefined."""
+        return taxa_abstencao(self.aptos, self.comparecimento)
+
+    @property
+    def participacao_conjunta(self) -> float | None:
+        """Share of valid votes cast for Lula or Flavio. None when undefined."""
+        return participacao_conjunta(self.lula, self.flavio, self.validos)
+
 
 @dataclass(frozen=True)
 class Agregado:
@@ -317,6 +332,21 @@ class Agregado:
         if self.dif_votos >= 0:
             return 0
         return -self.dif_votos
+
+    @property
+    def competitividade(self) -> float | None:
+        """Closeness of the summed Lula and Flavio totals. None when undefined."""
+        return competitividade_eleitoral(self.lula, self.flavio)
+
+    @property
+    def taxa_abstencao(self) -> float | None:
+        """Abstention rate of the group. None when undefined."""
+        return taxa_abstencao(self.aptos, self.comparecimento)
+
+    @property
+    def participacao_conjunta(self) -> float | None:
+        """Share of the group's valid votes cast for Lula or Flavio."""
+        return participacao_conjunta(self.lula, self.flavio, self.validos)
 
 
 @dataclass(frozen=True)
@@ -524,6 +554,89 @@ MAPAS_EMBUTIDOS: dict[str, dict[str, str]] = {
 }
 
 
+def competitividade_eleitoral(lula: int, flavio: int) -> float | None:
+    """Measure how close Lula and Flavio are, ignoring every other vote.
+
+    Args:
+        lula: Lula votes in the municipality or aggregate.
+        flavio: Flavio votes in the same unit.
+
+    Returns:
+        1 on a tie and 0 when one candidate has all of their combined votes.
+        None when the sum is zero or a count is negative.
+    """
+    if lula < 0 or flavio < 0:
+        return None
+    total = lula + flavio
+    if total == 0:
+        return None
+    return 1.0 - (abs(lula - flavio) / float(total))
+
+
+def taxa_abstencao(aptos: int, comparecimento: int) -> float | None:
+    """Abstention as a share of registered voters.
+
+    Args:
+        aptos: Registered voters.
+        comparecimento: Voters who turned out.
+
+    Returns:
+        A rate from 0 to 1. None when aptos is not positive or turnout
+        falls outside that total.
+    """
+    if aptos <= 0 or comparecimento < 0 or comparecimento > aptos:
+        return None
+    return (aptos - comparecimento) / float(aptos)
+
+
+def participacao_conjunta(lula: int, flavio: int, validos: int) -> float | None:
+    """Share of valid votes received by Lula and Flavio together.
+
+    Args:
+        lula: Lula votes.
+        flavio: Flavio votes.
+        validos: All valid votes, including other candidates.
+
+    Returns:
+        A rate from 0 to 1. None when valid votes are missing or the two
+        candidates exceed that total.
+    """
+    if lula < 0 or flavio < 0 or validos <= 0:
+        return None
+    if lula + flavio > validos:
+        return None
+    return (lula + flavio) / float(validos)
+
+
+def diferenca_absoluta(lula: int, flavio: int) -> int:
+    """Signed vote gap. Negative means Lula is behind.
+
+    Args:
+        lula: Lula votes.
+        flavio: Flavio votes.
+
+    Returns:
+        Lula votes minus Flavio votes.
+    """
+    return lula - flavio
+
+
+def diferenca_percentual(lula: int, flavio: int, validos: int) -> float | None:
+    """Signed gap in percentage points of all valid votes.
+
+    Args:
+        lula: Lula votes.
+        flavio: Flavio votes.
+        validos: All valid votes.
+
+    Returns:
+        100 * (Lula - Flavio) / valid votes. None when valid votes are missing.
+    """
+    if validos <= 0:
+        return None
+    return 100.0 * (lula - flavio) / float(validos)
+
+
 def fator_proximidade(margem_pp: float) -> float:
     """Weight a vote deficit by how close the municipal margin is.
 
@@ -543,7 +656,7 @@ def fator_proximidade(margem_pp: float) -> float:
 
 
 def indice_atencao(dif_pp: float, dif_votos: int, abstencoes: int, papel: str) -> float:
-    """Score cities Lula is losing. Higher means more useful attention.
+    """Legacy attention score. This is not electoral competitiveness.
 
     Args:
         dif_pp: Lula percent minus Flavio percent.
@@ -579,6 +692,8 @@ def classificar_municipio(dif_pp: float, dif_votos: int, aptos: int) -> str:
     margem = abs(dif_pp)
     if dif_votos > 0:
         return "Consolidar"
+    if dif_votos == 0:
+        return "Apoio local"
     if margem <= PP_CURTO_CIDADE_GRANDE and aptos >= APTOS_CURTO:
         return "Intensificar"
     if margem <= PP_MEDIO_CIDADE_MUITO_GRANDE and aptos >= APTOS_MUITO_GRANDE:
@@ -608,6 +723,8 @@ def classificar_regiao(agregado: Agregado) -> str:
     margem = abs(agregado.dif_pp)
     if agregado.dif_pp > 0:
         return "Consolidar"
+    if agregado.dif_votos >= 0:
+        return "Seletivo"
     if margem >= PP_REGIAO_ESTRUTURAL:
         return "Presenca contida"
     if margem <= PP_REGIAO_CURTA and agregado.votos_por_pp >= VOTOS_PP_RELEVANTE:
@@ -617,7 +734,7 @@ def classificar_regiao(agregado: Agregado) -> str:
     if agregado.deficit >= DEFICIT_REGIAO_VOLUME and margem > 15.0:
         return "Reduzir o buraco"
     if margem <= PP_REGIAO_APERTADA:
-        return "Consolidar"
+        return "Seletivo"
     return "Seletivo"
 
 
@@ -645,6 +762,34 @@ def agregar(nome: str, municipios: list[Municipio]) -> Agregado:
         locais_flavio=sum(item.locais_flavio for item in municipios),
         locais_empate=sum(item.locais_empate for item in municipios),
     )
+
+
+def _numero_ou_vazio(valor: float | None) -> float | str:
+    """Round a rate for a spreadsheet, or return a blank when it is undefined.
+
+    Args:
+        valor: Rate or competitiveness, possibly missing.
+
+    Returns:
+        A rounded float, or an empty string.
+    """
+    if valor is None:
+        return ""
+    return round(valor, 4)
+
+
+def fmt_razao(valor: float | None) -> str:
+    """Format a 0-1 indicator for the HTML report.
+
+    Args:
+        valor: Rate or competitiveness, possibly missing.
+
+    Returns:
+        Brazilian decimal text, or n/d when the indicator is undefined.
+    """
+    if valor is None:
+        return "n/d"
+    return fmt_decimal(valor, 2)
 
 
 def brancos_nulos(agregado: Agregado) -> int:
@@ -1445,7 +1590,10 @@ def metodologia() -> list[str]:
         "Presença contida: a diferença já é larga demais para concentrar comício e agenda. Entram municípios com margem de 28 p.p. ou mais e também os de menos de 40 mil aptos com margem acima de 15 p.p. A orientação é presença leve, para a margem não crescer.",
         "Consolidar: Lula já tem mais votos que Flávio. O trabalho é segurar a dianteira e ampliar os locais em que ele fica à frente.",
         "Apoio local: o que sobra depois das faixas acima. A cidade entra na soma do estado, mas não justifica deslocar a estrutura principal.",
-        "Índice de atenção = (déficit de votos + metade das abstenções) x fator de proximidade (1,00 até 8 p.p.; 0,65 até 15; 0,35 até 25; 0,15 acima disso). A metade das abstenções só entra em Intensificar e em Reduzir o buraco. Em Presença contida o ausente não sobe o município.",
+        "Competitividade = 1 - |Lula - Flávio| / (Lula + Flávio). Vale 1 no empate entre os dois e cai em direção a 0 quando a diferença relativa cresce. Não usa os outros votos válidos, não mede abstenção e não ordena a fila.",
+        "Participação conjunta = (Lula + Flávio) / votos válidos. É a fatia da eleição que ficou com os dois candidatos analisados.",
+        "Índice legado = (déficit de votos + metade das abstenções) x fator de proximidade (1,00 até 8 p.p.; 0,65 até 15; 0,35 até 25; 0,15 acima disso). A metade das abstenções só entra em Intensificar e em Reduzir o buraco. Esse índice não é competitividade e não foi substituído por ela.",
+        "Consolidar, no município e na região, exige Lula à frente. Empate não é consolidar nem intensificar. Região em que Lula está atrás e nenhuma regra anterior se aplica fica Seletiva, mesmo com margem de até 10 p.p.",
         "Trocas para empatar = metade do déficit, arredondada para cima. Votos novos para empatar = o déficit inteiro, se o total de Flávio ficar parado.",
         "O mapa embutido cobre as macrorregiões de campanha do RJ. Nos demais estados o gráfico usa a mesorregião do IBGE. Um CSV em --regioes substitui os dois quando o nome do município coincide.",
         "Abstenção não revela preferência. Ela só mede o tamanho do eleitorado que não compareceu. Ausentes cobrem quando esse total alcança o déficit da região. Brancos e nulos = comparecimento menos votos válidos.",
@@ -1537,6 +1685,9 @@ def _linha_municipio(item: Municipio) -> list[object]:
         round(item.flavio_pct, 2),
         round(item.dif_pp, 2),
         item.dif_votos,
+        _numero_ou_vazio(item.competitividade),
+        _numero_ou_vazio(item.participacao_conjunta),
+        _numero_ou_vazio(item.taxa_abstencao),
         round(item.votos_por_pp, 1),
         item.trocas_para_empatar,
         item.votos_novos_para_empatar,
@@ -1551,7 +1702,7 @@ CABECALHO_MUNICIPIO: list[str] = [
     "UF",
     "Macrorregião",
     "Papel",
-    "Índice de atenção",
+    "Índice legado",
     "Locais",
     "Aptos",
     "Comparecimento",
@@ -1564,6 +1715,9 @@ CABECALHO_MUNICIPIO: list[str] = [
     "Flávio %",
     "Diferença (p.p.)",
     "Diferença (votos)",
+    "Competitividade",
+    "Participação conjunta",
+    "Taxa de abstenção",
     "Votos em 1 p.p.",
     "Trocas para empatar",
     "Votos novos para empatar",
@@ -1577,7 +1731,10 @@ LARGURA_MUNICIPIO: dict[str, int] = {
     "UF": 8,
     "Macrorregião": 30,
     "Papel": 22,
-    "Índice de atenção": 18,
+    "Índice legado": 18,
+    "Competitividade": 18,
+    "Participação conjunta": 22,
+    "Taxa de abstenção": 18,
     "Locais": 12,
     "Aptos": 14,
     "Comparecimento": 16,
@@ -1664,6 +1821,9 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
             ["Locais Lula à frente", estado.locais_lula],
             ["Locais Flávio à frente", estado.locais_flavio],
             ["Locais empate", estado.locais_empate],
+            ["Competitividade", _numero_ou_vazio(estado.competitividade)],
+            ["Participação conjunta", _numero_ou_vazio(estado.participacao_conjunta)],
+            ["Taxa de abstenção", _numero_ou_vazio(estado.taxa_abstencao)],
             ["Locais Lula %", round(pct_locais_lula(estado), 1)],
             ["Brancos e nulos", brancos_nulos(estado)],
             ["Ausentes e o buraco", texto_teto_ausentes(estado)],
@@ -1693,6 +1853,9 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
                 round(regiao.flavio_pct, 2),
                 round(regiao.dif_pp, 2),
                 regiao.dif_votos,
+                _numero_ou_vazio(regiao.competitividade),
+                _numero_ou_vazio(regiao.participacao_conjunta),
+                _numero_ou_vazio(regiao.taxa_abstencao),
                 round(regiao.votos_por_pp, 1),
                 round(parcela, 1),
                 regiao.locais_lula,
@@ -1721,6 +1884,9 @@ def escrever_xlsx(relatorio: Relatorio, destino: Path) -> None:
             "Flávio %",
             "Diferença (p.p.)",
             "Diferença (votos)",
+            "Competitividade",
+            "Participação conjunta",
+            "Taxa de abstenção",
             "Votos em 1 p.p.",
             "Parcela do déficit %",
             "Locais Lula",
@@ -2619,6 +2785,10 @@ def escrever_html(relatorio: Relatorio, destino: Path, svg_mapa: str) -> None:
             _celula(fmt_pct(regiao.flavio_pct), "right"),
             _celula(fmt_pp(regiao.dif_pp), "right"),
             _celula(fmt_int(regiao.dif_votos), "right"),
+            _celula(fmt_razao(regiao.competitividade), "right"),
+            _celula(fmt_int(regiao.validos), "right"),
+            _celula(fmt_razao(regiao.participacao_conjunta), "right"),
+            _celula(fmt_razao(regiao.taxa_abstencao), "right"),
             _celula(fmt_int(int(round(regiao.votos_por_pp))), "right"),
             _celula(fmt_pct(parcela), "right"),
             _celula(
@@ -2650,6 +2820,10 @@ def escrever_html(relatorio: Relatorio, destino: Path, svg_mapa: str) -> None:
             _celula(ROTULO_PAPEL[item.papel]),
             _celula(fmt_pp(item.dif_pp), "right"),
             _celula(fmt_int(item.dif_votos), "right"),
+            _celula(fmt_razao(item.competitividade), "right"),
+            _celula(fmt_int(item.validos), "right"),
+            _celula(fmt_razao(item.participacao_conjunta), "right"),
+            _celula(fmt_razao(item.taxa_abstencao), "right"),
             _celula(fmt_int(int(round(item.indice))), "right"),
             _celula(fmt_int(item.aptos), "right"),
             _celula(fmt_pct(item.abstencao_pct), "right"),
@@ -2775,13 +2949,14 @@ details { margin-top: 28px; }
             "<p class=\"fonte\">O déficit mantém a ordem da região. Ausentes e o buraco diz se a mobilização, no teto, fecharia a diferença. Locais de Lula mostra a base que já existe. Brancos e nulos são quem compareceu e não entrou no voto válido.</p>",
             "<div class=\"tabela-wrap\"><table><thead><tr>",
             "<th>Macrorregião</th><th>Papel</th><th>Municípios</th><th>Aptos</th><th>Lula</th><th>Flávio</th>",
-            "<th>Diferença (p.p.)</th><th>Diferença (votos)</th><th>Votos em 1 p.p.</th><th>Parcela do déficit</th>",
+            "<th>Diferença (p.p.)</th><th>Diferença (votos)</th><th>Competitividade</th><th>Votos válidos</th>",
+            "<th>Participação conjunta</th><th>Taxa de abstenção</th><th>Votos em 1 p.p.</th><th>Parcela do déficit</th>",
             "<th>Locais de Lula</th><th>Abstenções</th><th>Ausentes e o buraco</th><th>Brancos e nulos</th>",
             "</tr></thead><tbody>",
             "\n".join(linhas_regiao),
             "</tbody><caption>Parcela do déficit usa só o que Lula está atrás. Ausentes cobrem quando as abstenções alcançam o déficit. Brancos e nulos = comparecimento menos votos válidos.</caption></table></div>",
             "<h2>Municípios que mudam a fila</h2>",
-            "<p>A tabela reúne todos os municípios, na ordem operacional. Estes seletores são os mesmos do mapa.</p>",
+            "<p>A tabela reúne todos os municípios, na ordem operacional. Estes seletores são os mesmos do mapa. Competitividade, votos válidos, taxa de abstenção, participação conjunta e diferença ficam em colunas separadas. A competitividade compara só Lula e Flávio: 1 é empate e 0 é um dos dois com todos os votos dos dois. Ela não ordena a fila. O índice legado continua sendo a ordenação dentro de cada papel.</p>",
             "<div class=\"filtros\">",
             html_botao_filtro("Todas", "Todas", True),
             html_botao_filtro("Intensificar", "Intensificar", False),
@@ -2792,10 +2967,11 @@ details { margin-top: 28px; }
             "</div>",
             "<div class=\"tabela-wrap\"><table id=\"tabela-municipios\"><thead><tr>",
             "<th>Município</th><th>Macrorregião</th><th>Papel</th><th>Diferença (p.p.)</th><th>Diferença (votos)</th>",
-            "<th>Índice</th><th>Aptos</th><th>Abstenção</th><th>Lula</th><th>Flávio</th><th>Locais Lula / Flávio</th>",
+            "<th>Competitividade</th><th>Votos válidos</th><th>Participação conjunta</th><th>Taxa de abstenção</th>",
+            "<th>Índice legado</th><th>Aptos</th><th>Abstenção</th><th>Lula</th><th>Flávio</th><th>Locais Lula / Flávio</th>",
             "</tr></thead><tbody>",
             "\n".join(linhas_muni),
-            "</tbody><caption>Diferença em pontos e em votos: Lula menos Flávio. Abstenção sobre aptos. Em Intensificar e Reduzir o buraco, o índice soma metade das abstenções e aplica o desconto da margem.</caption></table></div>",
+            "</tbody><caption>Diferença em pontos e em votos: Lula menos Flávio, sobre os votos válidos. Competitividade e participação conjunta vão de 0 a 1. A taxa de abstenção também vai de 0 a 1 e usa aptos menos comparecimento. A coluna Abstenção continua em percentual sobre aptos. O índice legado não é competitividade.</caption></table></div>",
             html_presenca(relatorio),
             "<aside class=\"callout aviso\"><strong>Limite deste arquivo</strong>",
             "<p>O recorte é municipal. Faltam zona, seção, perfil do eleitor e série histórica. ",
