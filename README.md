@@ -1,5 +1,7 @@
 # Lula 2026 — relatorio de estrategia municipal
 
+Os relatorios publicados ficam em https://romulobrito.github.io/lula-2026/
+
 Gera, para cada estado, um XLSX e um HTML com o papel de campanha de cada municipio, a partir de um CSV no padrao `resumo_municipios_UF.csv`. O HTML inclui um mapa dos municipios colorido pelo papel. A malha e a mesorregiao vem do IBGE e ficam em `cache/` depois do primeiro uso.
 
 ## Papéis
