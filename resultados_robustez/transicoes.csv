@@ -1,0 +1,77 @@
+familia,parametro,fator_relativo,de,para,quantidade
+limiar_municipal,pp_curto,0.80,Intensificar,Apoio local,1
+limiar_municipal,aptos_curto,1.05,Intensificar,Apoio local,1
+limiar_municipal,aptos_curto,0.90,Apoio local,Intensificar,5
+limiar_municipal,aptos_curto,1.10,Intensificar,Apoio local,3
+limiar_municipal,aptos_curto,1.20,Intensificar,Apoio local,4
+limiar_municipal,pp_disputavel,1.05,Apoio local,Intensificar,3
+limiar_municipal,pp_disputavel,0.90,Intensificar,Apoio local,1
+limiar_municipal,pp_disputavel,0.90,Intensificar,Reduzir o buraco,4
+limiar_municipal,pp_disputavel,1.10,Apoio local,Intensificar,6
+limiar_municipal,pp_disputavel,1.10,Reduzir o buraco,Intensificar,2
+limiar_municipal,pp_disputavel,1.20,Apoio local,Intensificar,10
+limiar_municipal,pp_disputavel,1.20,Reduzir o buraco,Intensificar,6
+limiar_municipal,aptos_disputavel,0.95,Apoio local,Intensificar,1
+limiar_municipal,aptos_disputavel,1.05,Intensificar,Apoio local,1
+limiar_municipal,aptos_disputavel,0.90,Apoio local,Intensificar,2
+limiar_municipal,aptos_disputavel,1.10,Intensificar,Apoio local,1
+limiar_municipal,aptos_disputavel,1.20,Intensificar,Apoio local,4
+limiar_municipal,deficit_volume,0.95,Apoio local,Reduzir o buraco,2
+limiar_municipal,deficit_volume,1.05,Reduzir o buraco,Apoio local,4
+limiar_municipal,deficit_volume,0.90,Apoio local,Reduzir o buraco,8
+limiar_municipal,deficit_volume,1.10,Reduzir o buraco,Apoio local,7
+limiar_municipal,deficit_volume,0.80,Apoio local,Reduzir o buraco,10
+limiar_municipal,deficit_volume,1.20,Reduzir o buraco,Apoio local,9
+limiar_municipal,pp_estrutural,0.95,Apoio local,Presenca contida,3
+limiar_municipal,pp_estrutural,0.95,Reduzir o buraco,Presenca contida,6
+limiar_municipal,pp_estrutural,1.05,Presenca contida,Apoio local,4
+limiar_municipal,pp_estrutural,1.05,Presenca contida,Reduzir o buraco,5
+limiar_municipal,pp_estrutural,0.90,Apoio local,Presenca contida,9
+limiar_municipal,pp_estrutural,0.90,Reduzir o buraco,Presenca contida,13
+limiar_municipal,pp_estrutural,1.10,Presenca contida,Apoio local,10
+limiar_municipal,pp_estrutural,1.10,Presenca contida,Reduzir o buraco,17
+limiar_municipal,pp_estrutural,0.80,Apoio local,Presenca contida,20
+limiar_municipal,pp_estrutural,0.80,Reduzir o buraco,Presenca contida,23
+limiar_municipal,pp_estrutural,1.20,Presenca contida,Apoio local,16
+limiar_municipal,pp_estrutural,1.20,Presenca contida,Reduzir o buraco,36
+limiar_municipal,aptos_pequeno,0.95,Presenca contida,Apoio local,5
+limiar_municipal,aptos_pequeno,1.05,Apoio local,Presenca contida,1
+limiar_municipal,aptos_pequeno,0.90,Presenca contida,Apoio local,7
+limiar_municipal,aptos_pequeno,1.10,Apoio local,Presenca contida,7
+limiar_municipal,aptos_pequeno,0.80,Presenca contida,Apoio local,23
+limiar_municipal,aptos_pequeno,1.20,Apoio local,Presenca contida,14
+limiar_municipal,pp_pequeno_largo,0.95,Apoio local,Presenca contida,32
+limiar_municipal,pp_pequeno_largo,1.05,Presenca contida,Apoio local,31
+limiar_municipal,pp_pequeno_largo,0.90,Apoio local,Presenca contida,71
+limiar_municipal,pp_pequeno_largo,1.10,Presenca contida,Apoio local,55
+limiar_municipal,pp_pequeno_largo,0.80,Apoio local,Presenca contida,117
+limiar_municipal,pp_pequeno_largo,1.20,Presenca contida,Apoio local,113
+limiar_regional,pp_estrutural,0.95,Reduzir o buraco,Presenca contida,2
+limiar_regional,pp_estrutural,0.90,Reduzir o buraco,Presenca contida,4
+limiar_regional,pp_estrutural,0.90,Seletivo,Presenca contida,1
+limiar_regional,pp_estrutural,1.10,Presenca contida,Reduzir o buraco,3
+limiar_regional,pp_estrutural,1.10,Presenca contida,Seletivo,1
+limiar_regional,pp_estrutural,0.80,Reduzir o buraco,Presenca contida,8
+limiar_regional,pp_estrutural,0.80,Seletivo,Presenca contida,3
+limiar_regional,pp_estrutural,1.20,Presenca contida,Reduzir o buraco,8
+limiar_regional,pp_estrutural,1.20,Presenca contida,Seletivo,2
+limiar_regional,pp_disputavel,0.95,Intensificar,Seletivo,2
+limiar_regional,pp_disputavel,1.05,Seletivo,Intensificar,1
+limiar_regional,pp_disputavel,1.10,Seletivo,Intensificar,3
+limiar_regional,pp_disputavel,1.20,Reduzir o buraco,Intensificar,1
+limiar_regional,pp_disputavel,1.20,Seletivo,Intensificar,3
+limiar_regional,deficit_disputavel,0.95,Seletivo,Intensificar,1
+limiar_regional,deficit_disputavel,1.05,Intensificar,Seletivo,1
+limiar_regional,deficit_disputavel,0.90,Seletivo,Intensificar,1
+limiar_regional,deficit_disputavel,1.10,Intensificar,Seletivo,1
+limiar_regional,deficit_disputavel,0.80,Seletivo,Intensificar,2
+limiar_regional,deficit_disputavel,1.20,Intensificar,Seletivo,1
+limiar_regional,deficit_volume,0.90,Seletivo,Reduzir o buraco,1
+limiar_regional,deficit_volume,0.80,Seletivo,Reduzir o buraco,1
+limiar_regional,margem_volume,1.05,Reduzir o buraco,Seletivo,1
+limiar_regional,margem_volume,0.90,Seletivo,Reduzir o buraco,1
+limiar_regional,margem_volume,1.10,Reduzir o buraco,Seletivo,1
+limiar_regional,margem_volume,0.80,Seletivo,Reduzir o buraco,1
+limiar_regional,margem_volume,1.20,Reduzir o buraco,Seletivo,1
+precedencia,deficit_antes,1.00,Intensificar,Reduzir o buraco,22
+precedencia,deficit_antes,1.00,Presenca contida,Reduzir o buraco,124

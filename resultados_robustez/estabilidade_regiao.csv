@@ -1,0 +1,87 @@
+uf,regiao,papel_original,fracao_manutencao,categorias_alternativas
+BA,Centro Norte Baiano,Consolidar,1.000000,
+BA,Centro Sul Baiano,Consolidar,1.000000,
+BA,Extremo Oeste Baiano,Consolidar,1.000000,
+BA,Metropolitana de Salvador,Consolidar,1.000000,
+BA,Nordeste Baiano,Consolidar,1.000000,
+BA,Sul Baiano,Consolidar,1.000000,
+BA,Vale São-Franciscano da Bahia,Consolidar,1.000000,
+CE,Centro-Sul Cearense,Consolidar,1.000000,
+CE,Jaguaribe,Consolidar,1.000000,
+CE,Metropolitana de Fortaleza,Consolidar,1.000000,
+CE,Noroeste Cearense,Consolidar,1.000000,
+CE,Norte Cearense,Consolidar,1.000000,
+CE,Sertões Cearenses,Consolidar,1.000000,
+CE,Sul Cearense,Consolidar,1.000000,
+MG,Campo das Vertentes,Consolidar,1.000000,
+MG,Central Mineira,Intensificar,0.902439,Seletivo
+MG,Jequitinhonha,Consolidar,1.000000,
+MG,Metropolitana de Belo Horizonte,Intensificar,1.000000,
+MG,Noroeste de Minas,Seletivo,1.000000,
+MG,Norte de Minas,Consolidar,1.000000,
+MG,Oeste de Minas,Reduzir o buraco,1.000000,
+MG,Sul/Sudoeste de Minas,Reduzir o buraco,1.000000,
+MG,Triângulo Mineiro/Alto Paranaíba,Reduzir o buraco,0.902439,Intensificar|Seletivo
+MG,Vale do Mucuri,Consolidar,1.000000,
+MG,Vale do Rio Doce,Intensificar,1.000000,
+MG,Zona da Mata,Consolidar,1.000000,
+PA,Baixo Amazonas,Seletivo,1.000000,
+PA,Marajó,Consolidar,1.000000,
+PA,Metropolitana de Belém,Consolidar,1.000000,
+PA,Nordeste Paraense,Consolidar,1.000000,
+PA,Sem macrorregiao,Sem mapa,1.000000,
+PA,Sudeste Paraense,Reduzir o buraco,1.000000,
+PA,Sudoeste Paraense,Presenca contida,1.000000,
+PE,Agreste Pernambucano,Consolidar,1.000000,
+PE,Mata Pernambucana,Consolidar,1.000000,
+PE,Metropolitana de Recife,Consolidar,1.000000,
+PE,Sertão Pernambucano,Consolidar,1.000000,
+PE,São Francisco Pernambucano,Consolidar,1.000000,
+PR,Centro Ocidental Paranaense,Seletivo,1.000000,
+PR,Centro Oriental Paranaense,Presenca contida,0.975610,Reduzir o buraco
+PR,Centro-Sul Paranaense,Seletivo,0.926829,Intensificar
+PR,Metropolitana de Curitiba,Reduzir o buraco,1.000000,
+PR,Noroeste Paranaense,Presenca contida,0.951220,Reduzir o buraco
+PR,Norte Central Paranaense,Presenca contida,1.000000,
+PR,Norte Pioneiro Paranaense,Seletivo,0.951220,Reduzir o buraco
+PR,Oeste Paranaense,Presenca contida,1.000000,
+PR,Sudeste Paranaense,Presenca contida,0.975610,Seletivo
+PR,Sudoeste Paranaense,Seletivo,1.000000,
+RJ,Baixada Fluminense,Reduzir o buraco,1.000000,
+RJ,Capital,Intensificar,1.000000,
+RJ,Costa Verde,Presenca contida,0.951220,Seletivo
+RJ,Leste Metropolitano,Intensificar,1.000000,
+RJ,Médio Paraíba,Intensificar,0.975610,Seletivo
+RJ,Noroeste Fluminense,Seletivo,1.000000,
+RJ,Norte Fluminense,Reduzir o buraco,1.000000,
+RJ,Região Serrana,Reduzir o buraco,1.000000,
+RJ,Região dos Lagos,Presenca contida,1.000000,
+RJ,Vale do Café e Centro-Sul,Seletivo,1.000000,
+RS,Centro Ocidental Rio-grandense,Seletivo,0.926829,Intensificar
+RS,Centro Oriental Rio-grandense,Presenca contida,0.975610,Reduzir o buraco
+RS,Metropolitana de Porto Alegre,Seletivo,0.902439,Intensificar|Reduzir o buraco
+RS,Nordeste Rio-grandense,Presenca contida,1.000000,
+RS,Noroeste Rio-grandense,Presenca contida,0.951220,Reduzir o buraco
+RS,Sudeste Rio-grandense,Consolidar,1.000000,
+RS,Sudoeste Rio-grandense,Seletivo,0.975610,Intensificar
+SC,Grande Florianópolis,Reduzir o buraco,1.000000,
+SC,Norte Catarinense,Presenca contida,1.000000,
+SC,Oeste Catarinense,Presenca contida,1.000000,
+SC,Serrana,Presenca contida,1.000000,
+SC,Sul Catarinense,Presenca contida,1.000000,
+SC,Vale do Itajaí,Presenca contida,1.000000,
+SP,Araraquara,Seletivo,0.951220,Intensificar
+SP,Araçatuba,Presenca contida,1.000000,
+SP,Assis,Presenca contida,0.975610,Reduzir o buraco
+SP,Bauru,Presenca contida,0.975610,Reduzir o buraco
+SP,Campinas,Reduzir o buraco,1.000000,
+SP,Itapetininga,Presenca contida,0.975610,Reduzir o buraco
+SP,Litoral Sul Paulista,Seletivo,1.000000,
+SP,Macro Metropolitana Paulista,Reduzir o buraco,1.000000,
+SP,Marília,Presenca contida,1.000000,
+SP,Metropolitana de São Paulo,Consolidar,1.000000,
+SP,Piracicaba,Presenca contida,1.000000,
+SP,Presidente Prudente,Presenca contida,0.951220,Reduzir o buraco
+SP,Ribeirão Preto,Reduzir o buraco,1.000000,
+SP,São José do Rio Preto,Presenca contida,1.000000,
+SP,Vale do Paraíba Paulista,Reduzir o buraco,1.000000,

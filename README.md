@@ -24,6 +24,8 @@ O indice legado, em Intensificar e Reduzir o buraco, soma o deficit de votos com
 
 A especificacao, a auditoria e a comparacao estao em `docs/especificacao_indicadores.md`, `docs/auditoria_priorizacao.md` e `docs/comparacao_metodologica.md`.
 
+A sensibilidade dos limiares esta em `docs/analise_sensibilidade.md` e `docs/robustez_classificacoes.md`. O comando `python scripts/analisar_robustez.py` so le os CSV e grava tabelas em `resultados_robustez/`. Ele nao recalibra peso e nao reescreve os relatorios publicados.
+
 A tabela de regioes cruza tres sinais com o deficit: se as abstencoes cobrem o buraco, a parcela de locais em que Lula fica a frente, e brancos e nulos (comparecimento menos votos validos).
 
 ## Requisitos

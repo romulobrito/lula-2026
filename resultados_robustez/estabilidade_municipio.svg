@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="148" viewBox="0 0 920 148">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="16" y="22" font-family="sans-serif" font-size="14">Municipios pela fracao de cenarios de limiar que mantem o papel</text>
+<text x="12" y="50" font-family="sans-serif" font-size="12">1.00</text>
+<rect x="280" y="36" width="560.0" height="14" fill="#2f6f9f"/>
+<text x="846.0" y="48" font-family="sans-serif" font-size="11">3321.000</text>
+<text x="12" y="72" font-family="sans-serif" font-size="12">0.95-0.99</text>
+<rect x="280" y="58" width="47.72056609454983" height="14" fill="#2f6f9f"/>
+<text x="333.72056609454984" y="70" font-family="sans-serif" font-size="11">283.000</text>
+<text x="12" y="94" font-family="sans-serif" font-size="12">0.80-0.95</text>
+<rect x="280" y="80" width="18.04275820535983" height="14" fill="#2f6f9f"/>
+<text x="304.04275820535986" y="92" font-family="sans-serif" font-size="11">107.000</text>
+<text x="12" y="116" font-family="sans-serif" font-size="12">abaixo de 0.80</text>
+<rect x="280" y="102" width="0.0" height="14" fill="#2f6f9f"/>
+<text x="286.0" y="114" font-family="sans-serif" font-size="11">0.000</text>
+</svg>

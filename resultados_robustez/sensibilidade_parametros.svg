@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="280" viewBox="0 0 920 280">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="16" y="22" font-family="sans-serif" font-size="14">Maior percentual que muda de papel, um limiar por vez</text>
+<text x="12" y="50" font-family="sans-serif" font-size="12">pp_pequeno_largo</text>
+<rect x="280" y="36" width="560.0" height="14" fill="#2f6f9f"/>
+<text x="846.0" y="48" font-family="sans-serif" font-size="11">3.153</text>
+<text x="12" y="72" font-family="sans-serif" font-size="12">pp_estrutural</text>
+<rect x="280" y="58" width="248.88888888888889" height="14" fill="#2f6f9f"/>
+<text x="534.8888888888889" y="70" font-family="sans-serif" font-size="11">1.401</text>
+<text x="12" y="94" font-family="sans-serif" font-size="12">aptos_pequeno</text>
+<rect x="280" y="80" width="110.08547008547009" height="14" fill="#2f6f9f"/>
+<text x="396.0854700854701" y="92" font-family="sans-serif" font-size="11">0.620</text>
+<text x="12" y="116" font-family="sans-serif" font-size="12">pp_disputavel</text>
+<rect x="280" y="102" width="76.5811965811966" height="14" fill="#2f6f9f"/>
+<text x="362.5811965811966" y="114" font-family="sans-serif" font-size="11">0.431</text>
+<text x="12" y="138" font-family="sans-serif" font-size="12">deficit_volume</text>
+<rect x="280" y="124" width="47.86324786324787" height="14" fill="#2f6f9f"/>
+<text x="333.86324786324786" y="136" font-family="sans-serif" font-size="11">0.269</text>
+<text x="12" y="160" font-family="sans-serif" font-size="12">aptos_curto</text>
+<rect x="280" y="146" width="23.931623931623935" height="14" fill="#2f6f9f"/>
+<text x="309.93162393162396" y="158" font-family="sans-serif" font-size="11">0.135</text>
+<text x="12" y="182" font-family="sans-serif" font-size="12">aptos_disputavel</text>
+<rect x="280" y="168" width="19.14529914529915" height="14" fill="#2f6f9f"/>
+<text x="305.14529914529913" y="180" font-family="sans-serif" font-size="11">0.108</text>
+<text x="12" y="204" font-family="sans-serif" font-size="12">pp_curto</text>
+<rect x="280" y="190" width="4.786324786324787" height="14" fill="#2f6f9f"/>
+<text x="290.78632478632477" y="202" font-family="sans-serif" font-size="11">0.027</text>
+<text x="12" y="226" font-family="sans-serif" font-size="12">pp_medio</text>
+<rect x="280" y="212" width="0.0" height="14" fill="#2f6f9f"/>
+<text x="286.0" y="224" font-family="sans-serif" font-size="11">0.000</text>
+<text x="12" y="248" font-family="sans-serif" font-size="12">aptos_muito_grande</text>
+<rect x="280" y="234" width="0.0" height="14" fill="#2f6f9f"/>
+<text x="286.0" y="246" font-family="sans-serif" font-size="11">0.000</text>
+</svg>

@@ -1,0 +1,4 @@
+ranking_a,ranking_b,spearman,kendall,n,excluidos,nota
+fila_operacional,competitividade,0.002346,-0.003103,3711,0,rankings diferentes; competitividade nao e prioridade
+fila_operacional_entre_quem_esta_atras,indice_legado,0.608937,0.615169,2243,1468,a fila ainda ordena primeiro pelo papel
+fila_operacional,deficit_absoluto,-0.585236,-0.341952,3711,0,deficit nao aplica o desconto de margem nem o papel

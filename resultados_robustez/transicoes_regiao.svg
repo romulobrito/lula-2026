@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="678" height="638" viewBox="0 0 678 638">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="16" y="22" font-family="sans-serif" font-size="14">transicoes regionais pp_estrutural x 0.80</text>
+<text x="158" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 158 142)">Intensificar</text>
+<text x="236" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 236 142)">Reduzir o buraco</text>
+<text x="314" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 314 142)">Consolidar</text>
+<text x="392" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 392 142)">Seletivo</text>
+<text x="470" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 470 142)">Presenca contida</text>
+<text x="548" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 548 142)">Sem mapa</text>
+<text x="8" y="178" font-family="sans-serif" font-size="11">Intensificar</text>
+<rect x="150" y="150" width="74" height="74" fill="#dadaff" stroke="#ffffff"/>
+<text x="158" y="178" font-family="sans-serif" font-size="11">6</text>
+<rect x="228" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="470" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="540" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="548" y="178" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="256" font-family="sans-serif" font-size="11">Reduzir o buraco</text>
+<rect x="150" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="256" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="228" width="74" height="74" fill="#e0e0ff" stroke="#ffffff"/>
+<text x="236" y="256" font-family="sans-serif" font-size="11">5</text>
+<rect x="306" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="256" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="256" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="228" width="74" height="74" fill="#cdcdff" stroke="#ffffff"/>
+<text x="470" y="256" font-family="sans-serif" font-size="11">8</text>
+<rect x="540" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="548" y="256" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="334" font-family="sans-serif" font-size="11">Consolidar</text>
+<rect x="150" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="306" width="74" height="74" fill="#4b4bff" stroke="#ffffff"/>
+<text x="314" y="334" font-family="sans-serif" font-size="11">29</text>
+<rect x="384" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="470" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="540" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="548" y="334" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="412" font-family="sans-serif" font-size="11">Seletivo</text>
+<rect x="150" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="412" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="412" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="412" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="384" width="74" height="74" fill="#c1c1ff" stroke="#ffffff"/>
+<text x="392" y="412" font-family="sans-serif" font-size="11">10</text>
+<rect x="462" y="384" width="74" height="74" fill="#ececff" stroke="#ffffff"/>
+<text x="470" y="412" font-family="sans-serif" font-size="11">3</text>
+<rect x="540" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="548" y="412" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="490" font-family="sans-serif" font-size="11">Presenca contida</text>
+<rect x="150" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="462" width="74" height="74" fill="#6a6aff" stroke="#ffffff"/>
+<text x="470" y="490" font-family="sans-serif" font-size="11">24</text>
+<rect x="540" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="548" y="490" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="568" font-family="sans-serif" font-size="11">Sem mapa</text>
+<rect x="150" y="540" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="568" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="540" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="568" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="540" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="568" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="540" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="568" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="540" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="470" y="568" font-family="sans-serif" font-size="11">0</text>
+<rect x="540" y="540" width="74" height="74" fill="#f9f9ff" stroke="#ffffff"/>
+<text x="548" y="568" font-family="sans-serif" font-size="11">1</text>
+</svg>

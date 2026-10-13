@@ -1,0 +1,12 @@
+tipo,corte,tolerancia,municipios,denominador
+margem_pp,8.0,0.5,48,2243
+margem_pp,13.0,0.5,41,2243
+margem_pp,15.0,0.5,43,2243
+margem_pp,16.0,0.5,40,2243
+margem_pp,25.0,0.5,48,2243
+margem_pp,28.0,0.5,66,2243
+aptos,40000,0.05,45,3711
+aptos,50000,0.05,44,3711
+aptos,60000,0.05,41,3711
+aptos,100000,0.05,17,3711
+deficit_votos,15000,0.05,24,2243

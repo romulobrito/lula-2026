@@ -1,0 +1,87 @@
+uf,regiao,papel,municipios,diferenca_votos,diferenca_pp,votos_validos,competitividade
+BA,Centro Norte Baiano,Consolidar,80,571761,40.4994,1411775,0.573957
+BA,Centro Sul Baiano,Consolidar,118,573481,37.0627,1547328,0.611120
+BA,Extremo Oeste Baiano,Consolidar,24,77629,19.1086,406252,0.799926
+BA,Metropolitana de Salvador,Consolidar,38,1008651,41.0679,2456056,0.559013
+BA,Nordeste Baiano,Consolidar,60,502805,50.9771,986335,0.467977
+BA,Sul Baiano,Consolidar,70,200792,17.7315,1132402,0.812948
+BA,Vale São-Franciscano da Bahia,Consolidar,27,287067,46.3066,619927,0.519013
+CE,Centro-Sul Cearense,Consolidar,14,132776,55.8492,237740,0.418323
+CE,Jaguaribe,Consolidar,21,147890,39.5567,373868,0.583160
+CE,Metropolitana de Fortaleza,Consolidar,11,344098,15.5737,2209481,0.832718
+CE,Noroeste Cearense,Consolidar,47,316911,35.1516,901555,0.630502
+CE,Norte Cearense,Consolidar,36,289475,38.0293,761190,0.602561
+CE,Sertões Cearenses,Consolidar,30,260543,47.3533,550211,0.507842
+CE,Sul Cearense,Consolidar,25,306720,52.5254,583946,0.448991
+MG,Campo das Vertentes,Consolidar,36,1200,0.3454,347419,0.996205
+MG,Central Mineira,Intensificar,30,-31040,-12.3992,250339,0.865157
+MG,Jequitinhonha,Consolidar,51,105126,27.9299,376392,0.703523
+MG,Metropolitana de Belo Horizonte,Intensificar,105,-216197,-5.6003,3860429,0.937666
+MG,Noroeste de Minas,Seletivo,19,-45023,-19.7570,227884,0.786628
+MG,Norte de Minas,Consolidar,89,173479,18.0526,960962,0.807677
+MG,Oeste de Minas,Reduzir o buraco,44,-135041,-22.2226,607674,0.757925
+MG,Sul/Sudoeste de Minas,Reduzir o buraco,146,-284128,-18.9289,1501031,0.792708
+MG,Triângulo Mineiro/Alto Paranaíba,Reduzir o buraco,66,-207689,-15.2194,1364632,0.833420
+MG,Vale do Mucuri,Consolidar,23,28159,13.3715,210590,0.859107
+MG,Vale do Rio Doce,Intensificar,102,-94823,-10.2857,921896,0.890495
+MG,Zona da Mata,Consolidar,142,117365,8.7574,1340178,0.905582
+PA,Baixo Amazonas,Seletivo,15,-14911,-2.9643,503017,0.968876
+PA,Marajó,Consolidar,16,122376,38.1582,320707,0.603658
+PA,Metropolitana de Belém,Consolidar,11,68704,4.5244,1518528,0.950830
+PA,Nordeste Paraense,Consolidar,49,404695,32.9826,1226995,0.655584
+PA,Sem macrorregiao,Sem mapa,1,-1201,-7.6884,15621,0.919885
+PA,Sudeste Paraense,Reduzir o buraco,38,-196534,-20.1956,973152,0.787367
+PA,Sudoeste Paraense,Presenca contida,14,-119849,-39.4343,303921,0.589233
+PE,Agreste Pernambucano,Consolidar,71,545306,38.3419,1422218,0.596112
+PE,Mata Pernambucana,Consolidar,43,258406,32.7014,790198,0.656427
+PE,Metropolitana de Recife,Consolidar,15,478857,20.1277,2379091,0.785288
+PE,Sertão Pernambucano,Consolidar,41,368933,58.8340,627074,0.384302
+PE,São Francisco Pernambucano,Consolidar,15,164426,43.0243,382170,0.543662
+PR,Centro Ocidental Paranaense,Seletivo,25,-52530,-26.0341,201774,0.720591
+PR,Centro Oriental Paranaense,Presenca contida,14,-131608,-31.0335,424084,0.655106
+PR,Centro-Sul Paranaense,Seletivo,29,-28719,-8.9057,322480,0.904421
+PR,Metropolitana de Curitiba,Reduzir o buraco,37,-591130,-26.4782,2232514,0.702576
+PR,Noroeste Paranaense,Presenca contida,61,-128685,-30.7798,418083,0.671068
+PR,Norte Central Paranaense,Presenca contida,79,-445559,-35.2878,1262644,0.613334
+PR,Norte Pioneiro Paranaense,Seletivo,46,-73573,-23.1003,318494,0.752148
+PR,Oeste Paranaense,Presenca contida,50,-297208,-36.6307,811363,0.606217
+PR,Sudeste Paranaense,Presenca contida,21,-79802,-31.4873,253442,0.654381
+PR,Sudoeste Paranaense,Seletivo,37,-61934,-18.2803,338802,0.804227
+RJ,Baixada Fluminense,Reduzir o buraco,13,-453523,-21.5986,2099775,0.770311
+RJ,Capital,Intensificar,1,-137837,-3.9963,3449113,0.956748
+RJ,Costa Verde,Presenca contida,3,-47884,-29.9307,159983,0.680926
+RJ,Leste Metropolitano,Intensificar,8,-101159,-8.7523,1155799,0.906342
+RJ,Médio Paraíba,Intensificar,9,-57934,-12.5750,460706,0.863767
+RJ,Noroeste Fluminense,Seletivo,13,-44590,-22.6449,196910,0.759954
+RJ,Norte Fluminense,Reduzir o buraco,11,-152499,-23.5266,648199,0.746697
+RJ,Região Serrana,Reduzir o buraco,14,-117408,-24.0776,487623,0.738124
+RJ,Região dos Lagos,Presenca contida,7,-146125,-35.0604,416781,0.624968
+RJ,Vale do Café e Centro-Sul,Seletivo,13,-14864,-6.3285,234874,0.931597
+RS,Centro Ocidental Rio-grandense,Seletivo,31,-41909,-13.3173,314697,0.855139
+RS,Centro Oriental Rio-grandense,Presenca contida,54,-159760,-31.8871,501018,0.649388
+RS,Metropolitana de Porto Alegre,Seletivo,98,-383552,-13.8224,2774855,0.847489
+RS,Nordeste Rio-grandense,Presenca contida,54,-316821,-45.8963,690298,0.497442
+RS,Noroeste Rio-grandense,Presenca contida,216,-370482,-29.5238,1254859,0.683117
+RS,Sudeste Rio-grandense,Consolidar,25,19288,3.7917,508685,0.958037
+RS,Sudoeste Rio-grandense,Seletivo,19,-25788,-6.8063,378887,0.926205
+SC,Grande Florianópolis,Reduzir o buraco,21,-197442,-25.1777,784194,0.721039
+SC,Norte Catarinense,Presenca contida,26,-415355,-49.5078,838969,0.460011
+SC,Oeste Catarinense,Presenca contida,118,-283158,-34.7382,815120,0.623998
+SC,Serrana,Presenca contida,30,-87877,-34.4019,255442,0.630354
+SC,Sul Catarinense,Presenca contida,46,-296889,-44.9991,659766,0.511203
+SC,Vale do Itajaí,Presenca contida,54,-592131,-51.7321,1144611,0.437151
+SP,Araraquara,Seletivo,21,-66503,-13.7119,485003,0.850115
+SP,Araçatuba,Presenca contida,36,-135277,-34.0262,397567,0.635222
+SP,Assis,Presenca contida,35,-96678,-30.9393,312476,0.666545
+SP,Bauru,Presenca contida,56,-262854,-31.4419,836000,0.657124
+SP,Campinas,Reduzir o buraco,49,-623981,-26.6025,2345570,0.707384
+SP,Itapetininga,Presenca contida,36,-152917,-31.4549,486147,0.660672
+SP,Litoral Sul Paulista,Seletivo,17,-52080,-18.3850,283275,0.801038
+SP,Macro Metropolitana Paulista,Reduzir o buraco,36,-476426,-27.6441,1723425,0.692149
+SP,Marília,Presenca contida,20,-100499,-39.8791,252009,0.570702
+SP,Metropolitana de São Paulo,Consolidar,45,53811,0.4253,12651773,0.995220
+SP,Piracicaba,Presenca contida,26,-336118,-39.3680,853785,0.570925
+SP,Presidente Prudente,Presenca contida,54,-142009,-29.8697,475428,0.680971
+SP,Ribeirão Preto,Reduzir o buraco,66,-332555,-24.4978,1357490,0.730435
+SP,São José do Rio Preto,Presenca contida,109,-326520,-33.6771,969561,0.636877
+SP,Vale do Paraíba Paulista,Reduzir o buraco,39,-366004,-25.2097,1451836,0.720678

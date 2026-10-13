@@ -637,25 +637,88 @@ def diferenca_percentual(lula: int, flavio: int, validos: int) -> float | None:
     return 100.0 * (lula - flavio) / float(validos)
 
 
-def fator_proximidade(margem_pp: float) -> float:
+@dataclass(frozen=True)
+class ParametrosFator:
+    """Closeness steps used by the legacy index. Defaults match the report."""
+
+    ate_8: float = FATOR_ATE_8
+    ate_15: float = FATOR_ATE_15
+    ate_25: float = FATOR_ATE_25
+    acima_25: float = FATOR_ACIMA_25
+    limite_8: float = 8.0
+    limite_15: float = 15.0
+    limite_25: float = 25.0
+
+
+@dataclass(frozen=True)
+class ParametrosMunicipio:
+    """Municipal role thresholds. Defaults match the published classification."""
+
+    pp_curto: float = PP_CURTO_CIDADE_GRANDE
+    aptos_curto: int = APTOS_CURTO
+    pp_medio: float = PP_MEDIO_CIDADE_MUITO_GRANDE
+    aptos_muito_grande: int = APTOS_MUITO_GRANDE
+    pp_disputavel: float = PP_DISPUTAVEL
+    aptos_disputavel: int = APTOS_DISPUTAVEL
+    deficit_volume: int = DEFICIT_VOLUME
+    pp_estrutural: float = PP_ESTRUTURAL
+    aptos_pequeno: int = APTOS_PEQUENO
+    pp_pequeno_largo: float = PP_PEQUENO_LARGO
+    precedencia: str = "padrao"
+
+
+@dataclass(frozen=True)
+class ParametrosRegiao:
+    """Regional role thresholds. Defaults match the published classification."""
+
+    pp_estrutural: float = PP_REGIAO_ESTRUTURAL
+    pp_curta: float = PP_REGIAO_CURTA
+    votos_pp: float = VOTOS_PP_RELEVANTE
+    pp_disputavel: float = PP_REGIAO_DISPUTAVEL
+    deficit_disputavel: int = DEFICIT_REGIAO_DISPUTAVEL
+    deficit_volume: int = DEFICIT_REGIAO_VOLUME
+    pp_apertada: float = PP_REGIAO_APERTADA
+    margem_volume: float = 15.0
+
+
+PRECEDENCIAS_MUNICIPIO: tuple[str, ...] = (
+    "padrao",
+    "presenca_antes",
+    "deficit_antes",
+)
+
+
+def fator_proximidade(
+    margem_pp: float,
+    fatores: ParametrosFator | None = None,
+) -> float:
     """Weight a vote deficit by how close the municipal margin is.
 
     Args:
         margem_pp: Absolute gap in percentage points.
+        fatores: Optional steps. None uses the published 8, 15 and 25 point cuts.
 
     Returns:
-        Factor from 0.15 (wide gap) to 1.0 (gap of at most 8 points).
+        Factor from the wide-gap step to the close-gap step.
     """
-    if margem_pp <= 8.0:
-        return FATOR_ATE_8
-    if margem_pp <= 15.0:
-        return FATOR_ATE_15
-    if margem_pp <= 25.0:
-        return FATOR_ATE_25
-    return FATOR_ACIMA_25
+    escolhidos = fatores if fatores is not None else ParametrosFator()
+    if margem_pp <= escolhidos.limite_8:
+        return escolhidos.ate_8
+    if margem_pp <= escolhidos.limite_15:
+        return escolhidos.ate_15
+    if margem_pp <= escolhidos.limite_25:
+        return escolhidos.ate_25
+    return escolhidos.acima_25
 
 
-def indice_atencao(dif_pp: float, dif_votos: int, abstencoes: int, papel: str) -> float:
+def indice_atencao(
+    dif_pp: float,
+    dif_votos: int,
+    abstencoes: int,
+    papel: str,
+    peso_ausente: float | None = None,
+    fatores: ParametrosFator | None = None,
+) -> float:
     """Legacy attention score. This is not electoral competitiveness.
 
     Args:
@@ -663,61 +726,116 @@ def indice_atencao(dif_pp: float, dif_votos: int, abstencoes: int, papel: str) -
         dif_votos: Lula votes minus Flavio votes.
         abstencoes: Registered voters who did not turn out.
         papel: Operational role already assigned to the municipality.
+        peso_ausente: Weight of an absentee inside the two turnout bands.
+            None uses the published weight of one half.
+        fatores: Optional closeness steps. None uses the published steps.
 
     Returns:
         Deficit times the closeness factor. In Intensificar and Reduzir o
-        buraco, half of the abstentions are added before that discount.
+        buraco, weighted abstentions are added before that discount.
         Zero when Lula is ahead or tied.
     """
     if dif_votos >= 0:
         return 0.0
-    fator = fator_proximidade(abs(dif_pp))
+    peso = PESO_AUSENTE if peso_ausente is None else peso_ausente
+    fator = fator_proximidade(abs(dif_pp), fatores)
     base = float(-dif_votos) * fator
     if papel not in ("Intensificar", "Reduzir o buraco"):
         return base
-    return base + (PESO_AUSENTE * float(max(abstencoes, 0)) * fator)
+    return base + (peso * float(max(abstencoes, 0)) * fator)
 
 
-def classificar_municipio(dif_pp: float, dif_votos: int, aptos: int) -> str:
+def classificar_municipio(
+    dif_pp: float,
+    dif_votos: int,
+    aptos: int,
+    params: ParametrosMunicipio | None = None,
+) -> str:
     """Assign an operational role from margin, vote gap, and electorate size.
 
     Args:
         dif_pp: Lula percent minus Flavio percent.
         dif_votos: Lula votes minus Flavio votes.
         aptos: Registered voters.
+        params: Optional thresholds and rule order. None uses the published rules.
 
     Returns:
         Internal role key. See ROTULO_PAPEL for the report label.
+
+    Raises:
+        ValueError: When the precedence name is not one of the known orders.
     """
+    escolhidos = params if params is not None else ParametrosMunicipio()
+    if escolhidos.precedencia not in PRECEDENCIAS_MUNICIPIO:
+        raise ValueError(
+            "Unknown municipal precedence: {nome}.".format(nome=escolhidos.precedencia)
+        )
     margem = abs(dif_pp)
     if dif_votos > 0:
         return "Consolidar"
     if dif_votos == 0:
         return "Apoio local"
-    if margem <= PP_CURTO_CIDADE_GRANDE and aptos >= APTOS_CURTO:
+    intensificar = (
+        (margem <= escolhidos.pp_curto and aptos >= escolhidos.aptos_curto)
+        or (
+            margem <= escolhidos.pp_medio
+            and aptos >= escolhidos.aptos_muito_grande
+        )
+        or (
+            margem <= escolhidos.pp_disputavel
+            and aptos >= escolhidos.aptos_disputavel
+        )
+    )
+    presenca_estrutural = margem >= escolhidos.pp_estrutural
+    reduzir = dif_votos <= -escolhidos.deficit_volume
+    presenca_pequena = (
+        aptos < escolhidos.aptos_pequeno and margem > escolhidos.pp_pequeno_largo
+    )
+    if escolhidos.precedencia == "presenca_antes":
+        if presenca_estrutural:
+            return "Presenca contida"
+        if intensificar:
+            return "Intensificar"
+        if reduzir:
+            return "Reduzir o buraco"
+        if presenca_pequena:
+            return "Presenca contida"
+        return "Apoio local"
+    if escolhidos.precedencia == "deficit_antes":
+        if reduzir:
+            return "Reduzir o buraco"
+        if intensificar:
+            return "Intensificar"
+        if presenca_estrutural:
+            return "Presenca contida"
+        if presenca_pequena:
+            return "Presenca contida"
+        return "Apoio local"
+    if intensificar:
         return "Intensificar"
-    if margem <= PP_MEDIO_CIDADE_MUITO_GRANDE and aptos >= APTOS_MUITO_GRANDE:
-        return "Intensificar"
-    if margem <= PP_DISPUTAVEL and aptos >= APTOS_DISPUTAVEL:
-        return "Intensificar"
-    if margem >= PP_ESTRUTURAL:
+    if presenca_estrutural:
         return "Presenca contida"
-    if dif_votos <= -DEFICIT_VOLUME:
+    if reduzir:
         return "Reduzir o buraco"
-    if aptos < APTOS_PEQUENO and margem > PP_PEQUENO_LARGO:
+    if presenca_pequena:
         return "Presenca contida"
     return "Apoio local"
 
 
-def classificar_regiao(agregado: Agregado) -> str:
+def classificar_regiao(
+    agregado: Agregado,
+    params: ParametrosRegiao | None = None,
+) -> str:
     """Assign a region role from its gap, deficit, and votes per point.
 
     Args:
         agregado: Summed macro-region.
+        params: Optional thresholds. None uses the published regional rules.
 
     Returns:
         Internal region-role key.
     """
+    escolhidos = params if params is not None else ParametrosRegiao()
     if agregado.nome == ROTULO_SEM_REGIAO:
         return "Sem mapa"
     margem = abs(agregado.dif_pp)
@@ -725,15 +843,18 @@ def classificar_regiao(agregado: Agregado) -> str:
         return "Consolidar"
     if agregado.dif_votos >= 0:
         return "Seletivo"
-    if margem >= PP_REGIAO_ESTRUTURAL:
+    if margem >= escolhidos.pp_estrutural:
         return "Presenca contida"
-    if margem <= PP_REGIAO_CURTA and agregado.votos_por_pp >= VOTOS_PP_RELEVANTE:
+    if margem <= escolhidos.pp_curta and agregado.votos_por_pp >= escolhidos.votos_pp:
         return "Intensificar"
-    if margem <= PP_REGIAO_DISPUTAVEL and agregado.deficit >= DEFICIT_REGIAO_DISPUTAVEL:
+    if (
+        margem <= escolhidos.pp_disputavel
+        and agregado.deficit >= escolhidos.deficit_disputavel
+    ):
         return "Intensificar"
-    if agregado.deficit >= DEFICIT_REGIAO_VOLUME and margem > 15.0:
+    if agregado.deficit >= escolhidos.deficit_volume and margem > escolhidos.margem_volume:
         return "Reduzir o buraco"
-    if margem <= PP_REGIAO_APERTADA:
+    if margem <= escolhidos.pp_apertada:
         return "Seletivo"
     return "Seletivo"
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="560" viewBox="0 0 600 560">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="16" y="22" font-family="sans-serif" font-size="14">transicoes pp_pequeno_largo x 0.80</text>
+<text x="158" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 158 142)">Intensificar</text>
+<text x="236" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 236 142)">Reduzir o buraco</text>
+<text x="314" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 314 142)">Consolidar</text>
+<text x="392" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 392 142)">Apoio local</text>
+<text x="470" y="142" font-family="sans-serif" font-size="10" transform="rotate(-40 470 142)">Presenca contida</text>
+<text x="8" y="178" font-family="sans-serif" font-size="11">Intensificar</text>
+<rect x="150" y="150" width="74" height="74" fill="#f7f7ff" stroke="#ffffff"/>
+<text x="158" y="178" font-family="sans-serif" font-size="11">69</text>
+<rect x="228" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="178" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="150" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="470" y="178" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="256" font-family="sans-serif" font-size="11">Reduzir o buraco</text>
+<rect x="150" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="256" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="228" width="74" height="74" fill="#fafaff" stroke="#ffffff"/>
+<text x="236" y="256" font-family="sans-serif" font-size="11">44</text>
+<rect x="306" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="256" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="256" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="228" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="470" y="256" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="334" font-family="sans-serif" font-size="11">Consolidar</text>
+<rect x="150" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="306" width="74" height="74" fill="#5959ff" stroke="#ffffff"/>
+<text x="314" y="334" font-family="sans-serif" font-size="11">1467</text>
+<rect x="384" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="334" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="306" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="470" y="334" font-family="sans-serif" font-size="11">0</text>
+<text x="8" y="412" font-family="sans-serif" font-size="11">Apoio local</text>
+<rect x="150" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="412" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="412" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="384" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="412" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="384" width="74" height="74" fill="#cfcfff" stroke="#ffffff"/>
+<text x="392" y="412" font-family="sans-serif" font-size="11">422</text>
+<rect x="462" y="384" width="74" height="74" fill="#f2f2ff" stroke="#ffffff"/>
+<text x="470" y="412" font-family="sans-serif" font-size="11">117</text>
+<text x="8" y="490" font-family="sans-serif" font-size="11">Presenca contida</text>
+<rect x="150" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="158" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="228" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="236" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="306" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="314" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="384" y="462" width="74" height="74" fill="#ffffff" stroke="#ffffff"/>
+<text x="392" y="490" font-family="sans-serif" font-size="11">0</text>
+<rect x="462" y="462" width="74" height="74" fill="#4b4bff" stroke="#ffffff"/>
+<text x="470" y="490" font-family="sans-serif" font-size="11">1592</text>
+</svg>

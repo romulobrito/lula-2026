@@ -1,0 +1,17 @@
+regra,ponto,abaixo,no_limite,acima,leitura
+fator_proximidade,8.0,1.0,1.0,0.65,descontinuidade esperada do indice legado
+fator_proximidade,15.0,0.65,0.65,0.35,descontinuidade esperada do indice legado
+fator_proximidade,25.0,0.35,0.35,0.15,descontinuidade esperada do indice legado
+margem_8_pp,-7.99|-100|50000,,Intensificar,,descontinuidade esperada da regra
+margem_8_pp,-8.0|-100|50000,,Intensificar,,descontinuidade esperada da regra
+margem_8_pp,-8.01|-100|50000,,Apoio local,,descontinuidade esperada da regra
+aptos_50000,-8.0|-100|49999,,Apoio local,,descontinuidade esperada da regra
+aptos_50000,-8.0|-100|50000,,Intensificar,,descontinuidade esperada da regra
+margem_28_pp,-27.99|-100|80000,,Apoio local,,descontinuidade esperada da regra
+margem_28_pp,-28.0|-100|80000,,Presenca contida,,descontinuidade esperada da regra
+margem_28_pp,-28.01|-100|80000,,Presenca contida,,descontinuidade esperada da regra
+deficit_15000,-20.0|-14999|80000,,Apoio local,,descontinuidade esperada da regra
+deficit_15000,-20.0|-15000|80000,,Reduzir o buraco,,descontinuidade esperada da regra
+cidade_pequena_15_pp,-15.0|-100|39999,,Apoio local,,descontinuidade esperada da regra
+cidade_pequena_15_pp,-15.01|-100|39999,,Presenca contida,,descontinuidade esperada da regra
+cidade_pequena_15_pp,-15.01|-100|40000,,Apoio local,,descontinuidade esperada da regra
